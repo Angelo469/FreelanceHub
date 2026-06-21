@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.FreelancerViewController"
+      style="-fx-padding: 20;"
+      stylesheets="@style.css">
+
+    <Label text="Gerenciar Freelancers" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <TextField fx:id="nomeField" promptText="Nome"/>
+        <TextField fx:id="especialidadeField" promptText="Especialidade"/>
+        <TextField fx:id="paisField" promptText="País"/>
+        <TextField fx:id="taxaField" promptText="Taxa por hora (USD)"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Cadastrar" onAction="#cadastrar"/>
+        <Button text="Atualizar" onAction="#atualizar"/>
+        <Button text="Deletar" onAction="#deletar"/>
+    </HBox>
+
+    <TableView fx:id="tabelaFreelancer">
+        <columns>
+            <TableColumn fx:id="colId" text="ID"/>
+            <TableColumn fx:id="colNome" text="Nome"/>
+            <TableColumn fx:id="colEspecialidade" text="Especialidade"/>
+            <TableColumn fx:id="colPais" text="País"/>
+            <TableColumn fx:id="colTaxa" text="Taxa/Hora"/>
+        </columns>
+    </TableView>
+
+</VBox>
