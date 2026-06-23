@@ -11,7 +11,7 @@ public class AtribuicaoDAO {
 
     public void inserir(Atribuicao a) throws SQLException {
         String sql = "INSERT INTO atribuicao (freelancer_id, projeto_id, horas_trabalhadas) VALUES (?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DataSourceConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, a.getFreelancer().getId());
             stmt.setInt(2, a.getProjeto().getId());
@@ -30,7 +30,7 @@ public class AtribuicaoDAO {
                 JOIN freelancer f ON a.freelancer_id = f.id
                 JOIN projeto p ON a.projeto_id = p.id
                 """;
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DataSourceConfig.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {

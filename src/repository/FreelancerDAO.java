@@ -9,7 +9,7 @@ public class FreelancerDAO {
 
     public void inserir(Freelancer f) throws SQLException {
         String sql = "INSERT INTO freelancer (nome, especialidade, pais, taxa_por_hora) VALUES (?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DataSourceConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, f.getNome());
             stmt.setString(2, f.getEspecialidade());
@@ -22,7 +22,7 @@ public class FreelancerDAO {
     public List<Freelancer> listarTodos() throws SQLException {
         List<Freelancer> lista = new ArrayList<>();
         String sql = "SELECT * FROM freelancer";
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DataSourceConfig.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -40,7 +40,7 @@ public class FreelancerDAO {
 
     public void atualizar(Freelancer f) throws SQLException {
         String sql = "UPDATE freelancer SET nome=?, especialidade=?, pais=?, taxa_por_hora=? WHERE id=?";
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DataSourceConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, f.getNome());
             stmt.setString(2, f.getEspecialidade());
@@ -53,7 +53,7 @@ public class FreelancerDAO {
 
     public void deletar(int id) throws SQLException {
         String sql = "DELETE FROM freelancer WHERE id=?";
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DataSourceConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
