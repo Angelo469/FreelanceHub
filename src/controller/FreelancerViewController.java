@@ -1,9 +1,12 @@
 package controller;
 
-import controller.FreelancerController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import model.Freelancer;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class FreelancerViewController {
@@ -125,5 +128,21 @@ public class FreelancerViewController {
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
         alert.showAndWait();
+    }
+
+    @FXML
+    public void abrirProjetosView() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                java.util.Objects.requireNonNull(
+                        getClass().getResource("/view/ProjetoView.fxml"),
+                        "ProjetoView.fxml não encontrado"
+                )
+        );
+        javafx.scene.Parent root = loader.load();
+        javafx.stage.Stage stage = new javafx.stage.Stage();
+        stage.setTitle("Gerenciar Projetos");
+        stage.setScene(new javafx.scene.Scene(root, 1200, 700));
+        stage.setOnCloseRequest(e -> carregarTabela());
+        stage.show();
     }
 }

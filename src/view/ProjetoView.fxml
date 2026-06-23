@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.ProjetoViewController"
+      style="-fx-padding: 20;"
+      stylesheets="@style.css">
+
+    <Label text="Gerenciar Projetos" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <TextField fx:id="nomeField" promptText="Nome do Projeto" prefWidth="180"/>
+        <TextField fx:id="clienteField" promptText="Cliente" prefWidth="150"/>
+        <DatePicker fx:id="prazoField" promptText="dd/MM/aaaa" prefWidth="140"/>
+        <TextField fx:id="valorField" promptText="Valor (USD)" prefWidth="120"/>
+        <ComboBox fx:id="statusCombo" promptText="Status" prefWidth="150"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Cadastrar" onAction="#cadastrar"/>
+        <Button text="Atualizar" onAction="#atualizar"/>
+        <Button text="Deletar" onAction="#deletar"/>
+    </HBox>
+
+    <TableView fx:id="tabelaProjeto" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colNome" text="Nome" prefWidth="180"/>
+            <TableColumn fx:id="colCliente" text="Cliente" prefWidth="150"/>
+            <TableColumn fx:id="colPrazo" text="Prazo" prefWidth="110"/>
+            <TableColumn fx:id="colValor" text="Valor (USD)" prefWidth="120"/>
+            <TableColumn fx:id="colStatus" text="Status" prefWidth="130"/>
+        </columns>
+    </TableView>
+
+</VBox>

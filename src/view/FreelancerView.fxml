@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.FreelancerViewController"
-      style="-fx-padding: 20;"
-      stylesheets="@style.css">
+<VBox spacing="10" style="-fx-padding: 20;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FreelancerViewController">
 
-    <Label text="Gerenciar Freelancers" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+    <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="Gerenciar Freelancers" />
 
     <HBox spacing="10">
-        <TextField fx:id="nomeField" promptText="Nome"/>
-        <TextField fx:id="especialidadeField" promptText="Especialidade"/>
-        <TextField fx:id="paisField" promptText="País"/>
-        <TextField fx:id="taxaField" promptText="Taxa por hora (USD)"/>
+        <TextField fx:id="nomeField" promptText="Nome" />
+        <TextField fx:id="especialidadeField" promptText="Especialidade" />
+        <TextField fx:id="paisField" promptText="País" />
+        <TextField fx:id="taxaField" promptText="Taxa por hora (USD)" />
     </HBox>
 
     <HBox spacing="10">
-        <Button text="Cadastrar" onAction="#cadastrar"/>
-        <Button text="Atualizar" onAction="#atualizar"/>
-        <Button text="Deletar" onAction="#deletar"/>
+        <Button onAction="#cadastrar" text="Cadastrar" />
+        <Button onAction="#atualizar" text="Atualizar" />
+        <Button onAction="#deletar" text="Deletar" />
+        <Button onAction="#abrirProjetosView" style="-fx-font-size: 13; -fx-padding: 10px 20px;" text="Gerenciar Projetos" />
     </HBox>
 
-    <TableView fx:id="tabelaFreelancer">
+    <TableView fx:id="tabelaFreelancer" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn fx:id="colId" text="ID"/>
-            <TableColumn fx:id="colNome" text="Nome"/>
-            <TableColumn fx:id="colEspecialidade" text="Especialidade"/>
-            <TableColumn fx:id="colPais" text="País"/>
-            <TableColumn fx:id="colTaxa" text="Taxa/Hora"/>
+            <TableColumn fx:id="colId" text="ID" />
+            <TableColumn fx:id="colNome" text="Nome" />
+            <TableColumn fx:id="colEspecialidade" text="Especialidade" />
+            <TableColumn fx:id="colPais" text="País" />
+            <TableColumn fx:id="colTaxa" text="Taxa/Hora" />
         </columns>
     </TableView>
 
