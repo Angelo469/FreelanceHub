@@ -1,0 +1,72 @@
+.root {
+    -fx-background-color: #0F172A;
+    -fx-font-family: "Segoe UI", "Arial";
+}
+
+VBox {
+    -fx-background-color: #0F172A;
+    -fx-padding: 60;
+    -fx-alignment: center;
+    -fx-spacing: 20;
+}
+
+Label {
+    -fx-text-fill: #0EA5E9;
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+}
+
+TextField, PasswordField {
+    -fx-font-size: 14;
+    -fx-padding: 12;
+    -fx-background-color: #1E293B;
+    -fx-text-fill: #E2E8F0;
+    -fx-border-color: #0EA5E9;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-prompt-text-fill: #64748B;
+}
+
+TextField:focused, PasswordField:focused {
+    -fx-border-color: #06B6D4;
+    -fx-border-width: 2;
+    -fx-background-color: #1A2F4F;
+}
+
+Button {
+    -fx-font-size: 14;
+    -fx-padding: 12 30;
+    -fx-background-color: #0EA5E9;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+Button:hover {
+    -fx-background-color: #06B6D4;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+Button:pressed {
+    -fx-background-color: #0284C7;
+}
+
+#loginButton {
+    -fx-min-width: 150;
+}
+
+#cancelButton {
+    -fx-min-width: 150;
+    -fx-background-color: #475569;
+}
+
+#cancelButton:hover {
+    -fx-background-color: #64748B;
+}
+
+#erroLabel {
+    -fx-text-fill: #FF6B6B;
+    -fx-font-size: 12;
+}

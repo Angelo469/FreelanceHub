@@ -20,8 +20,8 @@ public class Main extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(
                     Objects.requireNonNull(
-                            Main.class.getResource("/view/FreelancerView.fxml"),
-                            "FreelancerView.fxml não encontrado no classpath"
+                            Main.class.getResource("/view/Loginview.fxml"),
+                            "LoginView.fxml não encontrado no classpath"
                     )
             );
             Parent root = loader.load();

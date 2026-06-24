@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
 public class ProjetoViewController {
 
     private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+    private final FreelancerController freelancerController = new FreelancerController();
     private final ProjetoController controller = new ProjetoController();
 
     @FXML private TextField nomeField;
@@ -21,7 +21,7 @@ public class ProjetoViewController {
     @FXML private DatePicker prazoField;
     @FXML private TextField valorField;
     @FXML private ComboBox<String> statusCombo;
-
+    @FXML private ComboBox<model.Freelancer> freelancerCombo;
     @FXML private TableView<Projeto> tabelaProjeto;
     @FXML private TableColumn<Projeto, String> colId;
     @FXML private TableColumn<Projeto, String> colNome;
@@ -34,16 +34,46 @@ public class ProjetoViewController {
     public void initialize() {
         statusCombo.getItems().addAll("EM_ANDAMENTO", "CONCLUIDO", "ATRASADO");
         configurarDatePicker();
+
+        // Carregar freelancers no ComboBox
+        try {
+            freelancerCombo.getItems().setAll(freelancerController.listarTodos());
+            freelancerCombo.setConverter(new StringConverter<model.Freelancer>() {
+                @Override
+                public String toString(model.Freelancer freelancer) {
+                    return freelancer != null ? freelancer.getNome() : "";
+                }
+
+                @Override
+                public model.Freelancer fromString(String string) {
+                    return null;
+                }
+            });
+        } catch (SQLException e) {
+            mostrarAlerta("Erro ao carregar freelancers", "Nao foi possivel carregar a lista de freelancers: " + e.getMessage());
+        }
+
         configurarColunas();
         carregarTabela();
 
         tabelaProjeto.getSelectionModel().selectedItemProperty().addListener((obs, old, novo) -> {
+
             if (novo != null) {
                 nomeField.setText(novo.getNome());
                 clienteField.setText(novo.getCliente());
                 prazoField.setValue(novo.getPrazo());
                 valorField.setText(String.format("%.2f", novo.getValorDolar()));
                 statusCombo.setValue(novo.getStatus().name());
+               
+                // Preencher o ComboBox do freelancer
+                if (novo.getFreelancerId() != 0) { // Corrigido: Adicionado ')'
+                    freelancerCombo.getItems().stream() // Corrigido: 'steam()' para 'stream()'
+                            .filter(f -> f.getId() == novo.getFreelancerId())
+                            .findFirst() // Corrigido: 'filterFirst()' para 'findFirst()'
+                            .ifPresent(freelancerCombo::setValue);
+                } else {
+                    freelancerCombo.setValue(null); // Limpa a seleção se não houver freelancer
+                }
             }
         });
     }
@@ -104,13 +134,20 @@ public class ProjetoViewController {
         }
 
         try {
+            // Pega o freelancer selecionado no ComboBox
+            model.Freelancer freelancerSelecionado = freelancerCombo.getValue();
+            // Se nenhum freelancer for selecionado, usa 0 ou outro valor que indique "nenhum"
+            int freelancerId = (freelancerSelecionado != null) ? freelancerSelecionado.getId() : 0; 
+
             controller.cadastrar(
                     nomeField.getText().trim(),
                     clienteField.getText().trim(),
                     prazoField.getValue(),
                     Double.parseDouble(valorField.getText().trim().replace(",", ".")),
-                    Projeto.Status.valueOf(statusCombo.getValue())
+                    Projeto.Status.valueOf(statusCombo.getValue()),
+                    freelancerId // Passa o ID do freelancer
             );
+
             carregarTabela();
             limparCampos();
             mostrarSucesso("Projeto cadastrado com sucesso!");
@@ -131,13 +168,19 @@ public class ProjetoViewController {
         }
 
         try {
+            // Pega o freelancer selecionado no ComboBox
+            model.Freelancer freelancerSelecionado = freelancerCombo.getValue();
+            // Se nenhum freelancer for selecionado, usa 0 ou outro valor que indique "nenhum"
+            int freelancerId = (freelancerSelecionado != null) ? freelancerSelecionado.getId() : 0; 
+
             controller.atualizar(new Projeto(
                     selecionado.getId(),
                     nomeField.getText().trim(),
                     clienteField.getText().trim(),
                     prazoField.getValue(),
                     Double.parseDouble(valorField.getText().trim().replace(",", ".")),
-                    Projeto.Status.valueOf(statusCombo.getValue())
+                    Projeto.Status.valueOf(statusCombo.getValue()),
+                    freelancerId // Passa o ID do freelancer
             ));
             carregarTabela();
             limparCampos();
@@ -184,6 +227,7 @@ public class ProjetoViewController {
         prazoField.setValue(null);
         valorField.clear();
         statusCombo.setValue(null);
+        freelancerCombo.setValue(null); // Adicionado para limpar o ComboBox do freelancer
         tabelaProjeto.getSelectionModel().clearSelection();
     }
 
@@ -192,8 +236,9 @@ public class ProjetoViewController {
                 || clienteField.getText().trim().isEmpty()
                 || prazoField.getValue() == null
                 || valorField.getText().trim().isEmpty()
-                || statusCombo.getValue() == null) {
-            mostrarAlerta("Campos vazios", "Preencha todos os campos, incluindo o prazo e o status!");
+                || statusCombo.getValue() == null
+                || freelancerCombo.getValue() == null) { // Adicionada validação para o freelancer
+            mostrarAlerta("Campos vazios", "Preencha todos os campos, incluindo o prazo, o status e o freelancer responsável!");
             return false;
         }
 

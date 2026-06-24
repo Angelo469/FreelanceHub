@@ -137,11 +137,6 @@ mvn clean install
 
 5. Run the application
    - Execute `Main.java`
-
-## 🎨 Screenshots
-
-*(Screenshots will be added as the project evolves)*
-
 ## 📝 Development Log
 
 - **Day 1**: Project setup, database structure, Model entities, DAOs, Controllers, Freelancer CRUD UI with validations and CSS styling

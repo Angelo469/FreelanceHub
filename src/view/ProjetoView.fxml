@@ -17,6 +17,7 @@
         <DatePicker fx:id="prazoField" promptText="dd/MM/aaaa" prefWidth="140"/>
         <TextField fx:id="valorField" promptText="Valor (USD)" prefWidth="120"/>
         <ComboBox fx:id="statusCombo" promptText="Status" prefWidth="150"/>
+        <ComboBox fx:id="freelancerCombo" promptText="Freelancer Responsável" prefWidth="180"/>
     </HBox>
 
     <HBox spacing="10">

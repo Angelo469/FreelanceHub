@@ -8,13 +8,12 @@ import java.time.LocalDate;
 
 public class ProjetoController {
 
-    private final ProjetoDAO dao = new ProjetoDAO(); // Adicionado 'final' pois a instância não muda
+    private final ProjetoDAO dao = new ProjetoDAO();
 
-    public void cadastrar(String nome, String cliente, LocalDate prazo, double valorDolar, Projeto.Status status) throws SQLException {
-        Projeto p = new Projeto(0, nome, cliente, prazo, valorDolar, status);
+    public void cadastrar(String nome, String cliente, LocalDate prazo, double valorDolar, Projeto.Status status, int freelancerId) throws SQLException {
+        Projeto p = new Projeto(0, nome, cliente, prazo, valorDolar, status, freelancerId); // <--- CORREÇÃO AQUI
         dao.inserir(p);
     }
-
     public List<Projeto> listarTodos() throws SQLException {
         return dao.listarTodos();
     }

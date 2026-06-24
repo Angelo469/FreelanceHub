@@ -25,7 +25,7 @@ public class AtribuicaoDAO {
         String sql = """
                 SELECT a.id, a.horas_trabalhadas,
                        f.id as f_id, f.nome, f.especialidade, f.pais, f.taxa_por_hora,
-                       p.id as p_id, p.nome as p_nome, p.cliente, p.prazo, p.valor_dolar, p.status
+                       p.id as p_id, p.nome as p_nome, p.cliente, p.prazo, p.valor_dolar, p.status, p.freelancer_id
                 FROM atribuicao a
                 JOIN freelancer f ON a.freelancer_id = f.id
                 JOIN projeto p ON a.projeto_id = p.id
@@ -38,7 +38,8 @@ public class AtribuicaoDAO {
                         rs.getString("especialidade"), rs.getString("pais"), rs.getDouble("taxa_por_hora"));
                 Projeto p = new Projeto(rs.getInt("p_id"), rs.getString("p_nome"),
                         rs.getString("cliente"), rs.getDate("prazo").toLocalDate(),
-                        rs.getDouble("valor_dolar"), Projeto.Status.valueOf(rs.getString("status")));
+                        rs.getDouble("valor_dolar"), Projeto.Status.valueOf(rs.getString("status")),
+                        rs.getInt("freelancer_id")); // Adicionado freelancer_id
                 lista.add(new Atribuicao(rs.getInt("id"), f, p, rs.getInt("horas_trabalhadas")));
             }
         }

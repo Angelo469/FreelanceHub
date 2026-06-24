@@ -11,14 +11,16 @@ public class Projeto {
     private LocalDate prazo;
     private double valorDolar;
     private Status status;
+    private int freelancerId;
 
-    public Projeto(int id, String nome, String cliente, LocalDate prazo, double valorDolar, Status status) {
+    public Projeto(int id, String nome, String cliente, LocalDate prazo, double valorDolar, Status status, int freelancerId) {
         this.id = id;
         this.nome = nome;
         this.cliente = cliente;
         this.prazo = prazo;
         this.valorDolar = valorDolar;
         this.status = status;
+        this.freelancerId = freelancerId;
     }
 
     public int getId() { return id; }
@@ -27,6 +29,7 @@ public class Projeto {
     public LocalDate getPrazo() { return prazo; }
     public double getValorDolar() { return valorDolar; }
     public Status getStatus() { return status; }
+    public int getFreelancerId() { return freelancerId; }
 
     public void setId(int id) { this.id = id; }
     public void setNome(String nome) { this.nome = nome; }
@@ -34,4 +37,6 @@ public class Projeto {
     public void setPrazo(LocalDate prazo) { this.prazo = prazo; }
     public void setValorDolar(double valorDolar) { this.valorDolar = valorDolar; }
     public void setStatus(Status status) { this.status = status; }
+    public void setFreelancerId(int freelancerId) {this.freelancerId = freelancerId;}
+
 }
